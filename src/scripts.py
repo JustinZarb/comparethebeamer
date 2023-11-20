@@ -76,5 +76,8 @@ def plot_unidentified_listings(unidentified_listings):
         hoverinfo="text",
     )
     fig = go.Figure(scatter_trace)
-    fig.update_layout(height=1200)
+    fig.update_layout(
+        height=1200,
+        title="Unidentified Listings",
+    )
     return fig

@@ -4,9 +4,6 @@ import src.scripts as scripts
 import os
 
 st.set_page_config(layout="wide")
-
-st.title("Beamers on Kleinanzeigen")
-
 saved_selections = os.listdir("./data")
 specifications = [
     s
@@ -23,12 +20,28 @@ st.session_state["retrieval_date"] = list(specifications_sorted.keys())[0]
 
 filename = specifications_sorted.get(st.session_state["retrieval_date"])
 
-st.markdown(f"Data from {st.session_state['retrieval_date'].replace('.',':')}")
 
+################################################################
+st.title("Beamers on Kleinanzeigen")
+st.markdown(f"Latest retrieval: {st.session_state['retrieval_date'].replace('.',':')}")
+st.markdown(
+    """Hello, and welcome to the Beamer (aka. Projector) comparison page! The goal of \
+        this project is to make good deals easier to spot by identifying the model of \
+        the Beamer and displaying the specifications according to projectorcentral.com. \
+        The matching is not perfect, so look out for mis-matches between the title \
+        and matched model, and always check the photos! Use the sliders to change \
+        the minimum value of brightness, resolution width and 
+        contrast ratio. The graphs and table below will update. Use the link in the table to \
+        get back to the original listing."""
+)
 ########################################################################
 st.header("Identified Models")
-st.session_state["specifications"] = pd.read_csv(f"./data/{filename}")
 
+st.markdown(
+    "Around 35\% of all the listings can be matched to a model on projectorcentral.com. Mismatches are mainly caused by typos in the listings."
+)
+
+st.session_state["specifications"] = pd.read_csv(f"./data/{filename}")
 
 st.slider(
     label="Minimum Brightness (lm)",
@@ -70,12 +83,12 @@ sub_selection = st.session_state.specifications.loc[
 
 fig = scripts.plot_identified_models(
     sub_selection,
-    specifications_sorted.get(st.session_state.retrieval_date),
+    "Listing Prices by Brightness, Resolution and Contrast",
 )
 st.plotly_chart(fig, use_container_width=True)
 
 
-st.text_input(label="Filter known models:", key="search_text")
+st.text_input(label="Search for specific text in the title:", key="search_text")
 
 st.dataframe(
     sub_selection.loc[
@@ -101,9 +114,9 @@ st.dataframe(
 )
 
 ################################################################
-st.header("Unidentified Models")
+st.header("Unidentified Listings")
 st.markdown(
-    "Below are the remaining search results where no model could be identified. "
+    "There may be some hidden gems among the remaining ~65\% of search results where no model could be identified. To make things easier, some common irrelevant listings like 'Jim Beam' were removed."
 )
 unidentified_filename = [
     s
