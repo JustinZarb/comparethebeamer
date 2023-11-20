@@ -22,7 +22,7 @@ filename = specifications_sorted.get(st.session_state["retrieval_date"])
 
 
 ################################################################
-st.title("Beamers on Kleinanzeigen")
+st.title(":film_projector: Beamers on Kleinanzeigen ")
 st.markdown(f"Latest retrieval: {st.session_state['retrieval_date'].replace('.',':')}")
 st.markdown(
     """Hello, and welcome to the Beamer (aka. Projector) comparison page! The goal of \
@@ -35,7 +35,7 @@ st.markdown(
         get back to the original listing."""
 )
 ########################################################################
-st.header("Identified Models")
+st.header(":sparkles: Identified Models")
 
 st.markdown(
     "Around 35\% of all the listings can be matched to a model on projectorcentral.com. Mismatches are mainly caused by typos in the listings."
@@ -100,7 +100,9 @@ st.dataframe(
     .loc[
         :,
         [
+            "Price",
             "Title",
+            "Description",
             "Matched Model",
             "ResResolution",
             "Contrast",
@@ -110,11 +112,12 @@ st.dataframe(
             "Year",
             "Link",
         ],
-    ]
+    ],
+    use_container_width=True,
 )
 
 ################################################################
-st.header("Unidentified Listings")
+st.header(":grey_question: Unidentified Listings")
 st.markdown(
     "There may be some hidden gems among the remaining ~65\% of search results where no model could be identified. To make things easier, some common irrelevant listings like 'Jim Beam' were removed."
 )
@@ -139,5 +142,6 @@ st.dataframe(
         st.session_state.unidentified_df.loc[:, "Title"]
         .str.lower()
         .str.contains(st.session_state.search_text_unidentified.lower())
-    ].drop("Unnamed: 0", axis=1)
+    ].drop("Unnamed: 0", axis=1),
+    use_container_width=True,
 )

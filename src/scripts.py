@@ -46,7 +46,7 @@ def plot_identified_models(listings_with_specs: pd.DataFrame, fig_title: str):
         fig.update_xaxes(title_text=x_titles[i - 1], row=1, col=i)
 
     # Update y-axis title (common for all subplots)
-    fig.update_yaxes(title_text="Price (EUR)", row=1, col=1)
+    fig.update_yaxes(title_text="Price (€)", row=1, col=1)
 
     # Update layout to fit your preferences
     fig.update_layout(
@@ -77,7 +77,6 @@ def plot_unidentified_listings(unidentified_listings):
     )
     fig = go.Figure(scatter_trace)
     fig.update_layout(
-        height=1200,
-        title="Unidentified Listings",
+        height=1200, title="Unidentified Listings", xaxis_title="Price [€]"
     )
     return fig
