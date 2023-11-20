@@ -32,7 +32,6 @@ click-plugins==1.1.1
 cligj==0.7.2
 cloudpickle==2.2.1
 colorama==0.4.4
-command-not-found==0.3
 commonmark==0.9.1
 conda==4.1.6
 cookiecutter==2.3.0
